@@ -49,6 +49,11 @@ public class AssignmentFactory : IAssignmentFactory
     {
         return new Assignment(visitor.Id, visitor.DeviceId, visitor.CollaboratorId, visitor.PeriodDate);
     }
+
+    public IAssignment ConvertFromTemp(IAssignmentTemp assignmentTemp, Guid deviceId)
+    {
+        return new Assignment(assignmentTemp.Id, deviceId, assignmentTemp.CollaboratorId, assignmentTemp.PeriodDate);
+    }
 }
 
 

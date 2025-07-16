@@ -1,13 +1,16 @@
 using Application.DTO.Assignment;
 using Application.DTO.AssignmentTemp;
+using Application.Interfaces;
 using Application.IPublishers;
 using Contracts.Commands;
 using Domain.Factory.AssignmentTempFactory;
+using Domain.Interfaces;
 using Domain.IRepository;
+using Domain.Models;
 
 namespace Application.Services
 {
-    public class AssignmentTempService
+    public class AssignmentTempService : IAssignmentTempService
     {
         private readonly IAssignmentTempTempRepository _assignmentTempRepository;
         private readonly IAssignmentTempFactory _assignmentTempFactory;
@@ -20,15 +23,25 @@ namespace Application.Services
             _messagePublisher = messagePublisher;
         }
 
-        public async Task CreateAssignmentTempAsync(CreateAssignmentTempDTO createAssignmentTempDTO)
+        public async Task CreateAssignmentTempAsync(CreateRequestedAssignmentCommand command)
         {
-            var assignmentTemp = await _assignmentTempFactory.Create(createAssignmentTempDTO.CollaboratorId, createAssignmentTempDTO.PeriodDate, createAssignmentTempDTO.DeviceDescription, createAssignmentTempDTO.DeviceBrand, createAssignmentTempDTO.DeviceModel, createAssignmentTempDTO.DeviceSerialNumber);
+            var period = new PeriodDate(command.StartDate, command.EndDate);
+
+            var assignmentTemp = await _assignmentTempFactory.Create(command.AssignmentTempId, command.CollaboratorId, period, command.DeviceDescription, command.DeviceBrand, command.DeviceModel, command.DeviceSerialNumber);
             await _assignmentTempRepository.CreateAssignmentTempAsync(assignmentTemp);
+        }
+
+        public async Task<IAssignmentTemp> CreateAssignmentTempAsyncWithId(Guid id, Guid CollabId, PeriodDate periodDate, string deviceDescription, string deviceBrand, string deviceModel, string deviceSerialNumber)
+        {
+            var assignmentTemp = await _assignmentTempFactory.Create(id, CollabId, periodDate, deviceDescription, deviceBrand, deviceModel, deviceSerialNumber);
+            var existing = await _assignmentTempRepository.CreateAssignmentTempAsync(assignmentTemp);
+            return existing;
         }
 
         public async Task StartSagaAsync(CreateAssignmentAndDeviceDTO dto)
         {
-            CreateRequestedAssignmentCommand command = new(dto.CollaboratorId, dto.PeriodDate.InitDate, dto.PeriodDate.FinalDate, dto.DeviceDescription, dto.DeviceBrand, dto.DeviceModel, dto.DeviceSerialNumber);
+            Guid assignmentTempId = Guid.NewGuid();
+            CreateRequestedAssignmentCommand command = new(assignmentTempId, dto.CollaboratorId, dto.PeriodDate.InitDate, dto.PeriodDate.FinalDate, dto.DeviceDescription, dto.DeviceBrand, dto.DeviceModel, dto.DeviceSerialNumber);
             await _messagePublisher.SendCreateAssignmentSagaCommandAsync(command);
         }
 
@@ -56,7 +69,6 @@ namespace Application.Services
                 assignmentTemp.DeviceSerialNumber
             );
         }
-
 
     }
 }

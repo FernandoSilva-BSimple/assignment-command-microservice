@@ -4,10 +4,10 @@ namespace Application.DTO.Assignment;
 
 public record UpdateAssignmentDTO
 {
-    public Guid Id { get; }
-    public Guid DeviceId { get; }
-    public Guid CollaboratorId { get; }
-    public PeriodDate PeriodDate { get; }
+    public Guid Id { get; init; }
+    public Guid DeviceId { get; init; }
+    public Guid CollaboratorId { get; init; }
+    public PeriodDate PeriodDate { get; init; }
 
     public UpdateAssignmentDTO(Guid id, Guid deviceId, Guid collaboratorId, PeriodDate periodDate)
     {

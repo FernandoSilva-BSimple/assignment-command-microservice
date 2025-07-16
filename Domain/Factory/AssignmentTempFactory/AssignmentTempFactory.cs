@@ -17,8 +17,16 @@ public class AssignmentTempFactory : IAssignmentTempFactory
 
     public AssignmentTempFactory() { }
 
-    public IAssignmentTemp Create(Guid id, Guid collaboratorId, PeriodDate periodDate, string deviceDescription, string deviceBrand, string deviceModel, string deviceSerialNumber)
+    public async Task<IAssignmentTemp> Create(Guid id, Guid collaboratorId, PeriodDate periodDate, string deviceDescription, string deviceBrand, string deviceModel, string deviceSerialNumber)
     {
+        var collaborator = await _collaboratorRepository.GetByIdAsync(collaboratorId);
+        if (collaborator == null) throw new Exception("Collaborator not found");
+
+        var collaboratorStart = DateOnly.FromDateTime(collaborator.PeriodDateTime._initDate);
+        var collaboratorEnd = DateOnly.FromDateTime(collaborator.PeriodDateTime._finalDate);
+
+        if (periodDate.InitDate < collaboratorStart || periodDate.FinalDate > collaboratorEnd)
+            throw new Exception("Assignment period must be within the collaborator's active period");
         return new AssignmentTemp(id, collaboratorId, periodDate, deviceDescription, deviceBrand, deviceModel, deviceSerialNumber);
     }
 

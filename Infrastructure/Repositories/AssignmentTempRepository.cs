@@ -30,7 +30,7 @@ public class AssignmentTempRepository : IAssignmentTempTempRepository
 
     public async Task<IAssignmentTemp?> GetAssignmentTempByIdAsync(Guid id)
     {
-        var assignmentTempDM = await _context.Set<AssignmentTempDataModel>().FirstOrDefaultAsync(a => a.Id == id);
+        var assignmentTempDM = await _context.Set<AssignmentTempDataModel>().AsNoTracking().FirstOrDefaultAsync(a => a.Id == id);
         if (assignmentTempDM == null) return null;
 
         var assignmentTemp = _mapper.Map<IAssignmentTemp>(assignmentTempDM);

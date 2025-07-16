@@ -5,12 +5,12 @@ namespace Application.DTO.AssignmentTemp;
 
 public record CreateAssignmentTempDTO
 {
-    public Guid CollaboratorId { get; }
-    public PeriodDate PeriodDate { get; }
-    public string DeviceDescription { get; }
-    public string DeviceBrand { get; }
-    public string DeviceModel { get; }
-    public string DeviceSerialNumber { get; }
+    public Guid CollaboratorId { get; init; }
+    public PeriodDate PeriodDate { get; init; }
+    public string DeviceDescription { get; init; }
+    public string DeviceBrand { get; init; }
+    public string DeviceModel { get; init; }
+    public string DeviceSerialNumber { get; init; }
 
     public CreateAssignmentTempDTO(Guid collaboratorId, PeriodDate periodDate, string deviceDescription, string deviceBrand, string deviceModel, string deviceSerialNumber)
     {

@@ -1,4 +1,5 @@
 using Application.DTO.Assignment;
+using Application.Interfaces;
 using Application.IPublishers;
 using Domain.Factory.AssignmentFactory;
 using Domain.Interfaces;
@@ -7,7 +8,7 @@ using Domain.Models;
 
 namespace Application.Services
 {
-    public class AssignmentService
+    public class AssignmentService : IAssignmentService
     {
         private readonly IAssignmentRepository _assignmentRepository;
         private readonly IAssignmentFactory _assignmentFactory;

@@ -1,10 +1,11 @@
+using Application.Interfaces;
 using Domain.Factory.DeviceFactory;
 using Domain.Interfaces;
 using Domain.IRepository;
 
 namespace Application.Services
 {
-    public class DeviceService
+    public class DeviceService : IDeviceService
     {
         private readonly IDeviceRepository _deviceRepository;
         private readonly IDeviceFactory _deviceFactory;
