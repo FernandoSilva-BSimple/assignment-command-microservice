@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Automapper" Version="15.0.1" />
     <PackageReference Include="MassTransit" Version="8.5.0" />
     <PackageReference Include="Masstransit.RabbitMQ" Version="8.4.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.7" />
