@@ -51,7 +51,7 @@ public class AssignmentFactoryTests
             .Setup(r => r.ExistsWithDeviceAndOverlappingPeriod(deviceId, assignmentPeriod))
             .ReturnsAsync(false);
 
-        collabRepositoryMock.Setup(cr => cr.GetById(collaboratorId)).ReturnsAsync(collaborator.Object);
+        collabRepositoryMock.Setup(cr => cr.GetByIdAsync(collaboratorId)).ReturnsAsync(collaborator.Object);
 
         deviceRepositoryMock.Setup(r => r.Exists(deviceId)).ReturnsAsync(true);
 
@@ -80,7 +80,7 @@ public class AssignmentFactoryTests
         var deviceRepositoryMock = new Mock<IDeviceRepository>();
 
         collabRepositoryMock
-            .Setup(r => r.GetById(collaboratorId))
+            .Setup(r => r.GetByIdAsync(collaboratorId))
             .ReturnsAsync((Collaborator)null!);
 
         var assignmentFactory = new AssignmentFactory(
@@ -120,7 +120,7 @@ public class AssignmentFactoryTests
 
         var collabRepositoryMock = new Mock<ICollaboratorRepository>();
         collabRepositoryMock
-            .Setup(r => r.GetById(collaboratorId))
+            .Setup(r => r.GetByIdAsync(collaboratorId))
             .ReturnsAsync(collaboratorMock.Object);
 
         var deviceRepositoryMock = new Mock<IDeviceRepository>();
@@ -165,7 +165,7 @@ public class AssignmentFactoryTests
 
         var collabRepositoryMock = new Mock<ICollaboratorRepository>();
         collabRepositoryMock
-            .Setup(r => r.GetById(collaboratorId))
+            .Setup(r => r.GetByIdAsync(collaboratorId))
             .ReturnsAsync(collaboratorMock.Object);
 
         var deviceRepositoryMock = new Mock<IDeviceRepository>();
@@ -211,7 +211,7 @@ public class AssignmentFactoryTests
 
         var collabRepositoryMock = new Mock<ICollaboratorRepository>();
         collabRepositoryMock
-            .Setup(r => r.GetById(collaboratorId))
+            .Setup(r => r.GetByIdAsync(collaboratorId))
             .ReturnsAsync(collaboratorMock.Object);
 
         var deviceRepositoryMock = new Mock<IDeviceRepository>();

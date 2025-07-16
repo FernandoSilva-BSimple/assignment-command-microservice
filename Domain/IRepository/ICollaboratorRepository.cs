@@ -4,7 +4,6 @@ namespace Domain.IRepository;
 
 public interface ICollaboratorRepository
 {
-    Task<bool> Exists(Guid id);
-    Task<ICollaborator> GetById(Guid id);
+    Task<ICollaborator?> GetByIdAsync(Guid id);
 
 }

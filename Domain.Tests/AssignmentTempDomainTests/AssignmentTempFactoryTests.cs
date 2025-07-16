@@ -38,7 +38,7 @@ namespace Domain.Tests.AssignmentTempDomainTests
             collaboratorMock.Setup(c => c.PeriodDateTime).Returns(collabPeriodDateTime);
 
             var collaboratorRepositoryMock = new Mock<ICollaboratorRepository>();
-            collaboratorRepositoryMock.Setup(cr => cr.GetById(collaboratorId))
+            collaboratorRepositoryMock.Setup(cr => cr.GetByIdAsync(collaboratorId))
                                       .ReturnsAsync(collaboratorMock.Object);
 
             var factory = new AssignmentTempFactory(collaboratorRepositoryMock.Object);
@@ -64,7 +64,7 @@ namespace Domain.Tests.AssignmentTempDomainTests
             var assignmentPeriod = new PeriodDate(new DateOnly(2025, 7, 10), new DateOnly(2025, 7, 20));
 
             var collaboratorRepositoryMock = new Mock<ICollaboratorRepository>();
-            collaboratorRepositoryMock.Setup(r => r.GetById(collaboratorId)).ReturnsAsync((ICollaborator)null!);
+            collaboratorRepositoryMock.Setup(r => r.GetByIdAsync(collaboratorId)).ReturnsAsync((ICollaborator)null!);
 
             var factory = new AssignmentTempFactory(collaboratorRepositoryMock.Object);
 
@@ -90,7 +90,7 @@ namespace Domain.Tests.AssignmentTempDomainTests
             collaboratorMock.Setup(c => c.PeriodDateTime).Returns(collabPeriodDateTime);
 
             var collaboratorRepositoryMock = new Mock<ICollaboratorRepository>();
-            collaboratorRepositoryMock.Setup(r => r.GetById(collaboratorId)).ReturnsAsync(collaboratorMock.Object);
+            collaboratorRepositoryMock.Setup(r => r.GetByIdAsync(collaboratorId)).ReturnsAsync(collaboratorMock.Object);
 
             var factory = new AssignmentTempFactory(collaboratorRepositoryMock.Object);
 

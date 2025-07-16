@@ -5,7 +5,7 @@ using Domain.Visitors;
 
 namespace Domain.Factory.AssignmentTempFactory;
 
-public class AssignmentTempFactory
+public class AssignmentTempFactory : IAssignmentTempFactory
 {
     private readonly ICollaboratorRepository _collaboratorRepository;
 
@@ -24,7 +24,7 @@ public class AssignmentTempFactory
     public async Task<AssignmentTemp> Create(Guid collaboratorId, PeriodDate periodDate, string deviceDescription, string deviceBrand, string deviceModel, string deviceSerialNumber)
     {
 
-        var collaborator = await _collaboratorRepository.GetById(collaboratorId);
+        var collaborator = await _collaboratorRepository.GetByIdAsync(collaboratorId);
         if (collaborator == null) throw new Exception("Collaborator not found");
 
         var collaboratorStart = DateOnly.FromDateTime(collaborator.PeriodDateTime._initDate);

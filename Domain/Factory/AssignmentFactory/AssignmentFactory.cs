@@ -26,7 +26,7 @@ public class AssignmentFactory
     public async Task<Assignment> Create(Guid deviceId, Guid collaboratorId, PeriodDate periodDate)
     {
 
-        var collaborator = await _collaboratorRepository.GetById(collaboratorId);
+        var collaborator = await _collaboratorRepository.GetByIdAsync(collaboratorId);
         if (collaborator == null) throw new Exception("Collaborator not found");
 
         var collaboratorStart = DateOnly.FromDateTime(collaborator.PeriodDateTime._initDate);
