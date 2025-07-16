@@ -118,6 +118,9 @@ builder.Services.AddMassTransit(x =>
         cfg.ReceiveEndpoint($"assignments-cmd-{instanceId}", e =>
         {
             e.ConfigureConsumer<DeviceCreatedConsumer>(ctx);
+            e.ConfigureConsumer<AssignmentCreatedConsumer>(ctx);
+            e.ConfigureConsumer<AssignmentUpdatedConsumer>(ctx);
+            e.ConfigureConsumer<CollaboratorCreatedConsumer>(ctx);
         });
 
         cfg.ReceiveEndpoint($"assignments-cmd-saga-{instanceId}", e =>

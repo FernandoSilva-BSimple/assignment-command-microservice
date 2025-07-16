@@ -16,6 +16,7 @@ public class AssignmentCreatedConsumer : IConsumer<AssignmentCreatedMessage>
 
     public async Task Consume(ConsumeContext<AssignmentCreatedMessage> context)
     {
+        Console.WriteLine("Estamos a consumir a mensagem de assignmentCreated");
 
         var period = new PeriodDate(context.Message.StartDate, context.Message.EndDate);
 
