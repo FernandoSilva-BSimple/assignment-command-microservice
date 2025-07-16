@@ -7,7 +7,7 @@ namespace Domain.Factory.AssignmentFactory;
 public interface IAssignmentFactory
 {
     IAssignment Create(Guid id, Guid deviceId, Guid collaboratorId, PeriodDate periodDate);
-    Assignment Create(Guid deviceId, Guid collaboratorId, PeriodDate periodDate);
-    Assignment Create(IAssignmentVisitor visitor);
+    Task<IAssignment> Create(Guid deviceId, Guid collaboratorId, PeriodDate periodDate);
+    IAssignment Create(IAssignmentVisitor visitor);
 
 }

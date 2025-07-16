@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Domain.Interfaces;
 using Domain.IRepository;
 using Domain.Models;
 using Domain.Visitors;
@@ -16,12 +17,12 @@ public class AssignmentTempFactory : IAssignmentTempFactory
 
     public AssignmentTempFactory() { }
 
-    public AssignmentTemp Create(Guid id, Guid collaboratorId, PeriodDate periodDate, string deviceDescription, string deviceBrand, string deviceModel, string deviceSerialNumber)
+    public IAssignmentTemp Create(Guid id, Guid collaboratorId, PeriodDate periodDate, string deviceDescription, string deviceBrand, string deviceModel, string deviceSerialNumber)
     {
         return new AssignmentTemp(id, collaboratorId, periodDate, deviceDescription, deviceBrand, deviceModel, deviceSerialNumber);
     }
 
-    public async Task<AssignmentTemp> Create(Guid collaboratorId, PeriodDate periodDate, string deviceDescription, string deviceBrand, string deviceModel, string deviceSerialNumber)
+    public async Task<IAssignmentTemp> Create(Guid collaboratorId, PeriodDate periodDate, string deviceDescription, string deviceBrand, string deviceModel, string deviceSerialNumber)
     {
 
         var collaborator = await _collaboratorRepository.GetByIdAsync(collaboratorId);
@@ -36,7 +37,7 @@ public class AssignmentTempFactory : IAssignmentTempFactory
         return new AssignmentTemp(collaboratorId, periodDate, deviceDescription, deviceBrand, deviceModel, deviceSerialNumber);
     }
 
-    public AssignmentTemp Create(IAssignmentTempVisitor visitor)
+    public IAssignmentTemp Create(IAssignmentTempVisitor visitor)
     {
         return new AssignmentTemp(visitor.Id, visitor.CollaboratorId, visitor.PeriodDate, visitor.DeviceDescription, visitor.DeviceBrand, visitor.DeviceModel, visitor.DeviceSerialNumber);
     }

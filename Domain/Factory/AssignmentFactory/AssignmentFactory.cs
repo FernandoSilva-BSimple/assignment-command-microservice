@@ -1,11 +1,12 @@
 using System.Threading.Tasks;
+using Domain.Interfaces;
 using Domain.IRepository;
 using Domain.Models;
 using Domain.Visitors;
 
 namespace Domain.Factory.AssignmentFactory;
 
-public class AssignmentFactory
+public class AssignmentFactory : IAssignmentFactory
 {
     private readonly IAssignmentRepository _assignmentRepository;
     private readonly ICollaboratorRepository _collaboratorRepository;
@@ -18,12 +19,12 @@ public class AssignmentFactory
         _deviceRepository = deviceRepository;
     }
 
-    public Assignment Create(Guid id, Guid deviceId, Guid collaboratorId, PeriodDate periodDate)
+    public IAssignment Create(Guid id, Guid deviceId, Guid collaboratorId, PeriodDate periodDate)
     {
         return new Assignment(id, deviceId, collaboratorId, periodDate);
     }
 
-    public async Task<Assignment> Create(Guid deviceId, Guid collaboratorId, PeriodDate periodDate)
+    public async Task<IAssignment> Create(Guid deviceId, Guid collaboratorId, PeriodDate periodDate)
     {
 
         var collaborator = await _collaboratorRepository.GetByIdAsync(collaboratorId);
@@ -44,7 +45,7 @@ public class AssignmentFactory
         return new Assignment(deviceId, collaboratorId, periodDate);
     }
 
-    public Assignment Create(IAssignmentVisitor visitor)
+    public IAssignment Create(IAssignmentVisitor visitor)
     {
         return new Assignment(visitor.Id, visitor.DeviceId, visitor.CollaboratorId, visitor.PeriodDate);
     }

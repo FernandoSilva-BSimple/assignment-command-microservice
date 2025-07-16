@@ -36,4 +36,11 @@ public class AssignmentTempRepository : IAssignmentTempTempRepository
         var assignmentTemp = _mapper.Map<IAssignmentTemp>(assignmentTempDM);
         return assignmentTemp;
     }
+
+    public async Task RemoveAssignmentTempAsync(IAssignmentTemp assignmentTemp)
+    {
+        var assignmentTempDM = _mapper.Map<AssignmentTempDataModel>(assignmentTemp);
+        _context.Set<AssignmentTempDataModel>().Remove(assignmentTempDM);
+        await _context.SaveChangesAsync();
+    }
 }

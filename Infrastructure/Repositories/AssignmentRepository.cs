@@ -40,6 +40,18 @@ public class AssignmentRepository : IAssignmentRepository
         return exists;
     }
 
+    public async Task<bool> ExistsWithDeviceAndOverlappingPeriodExcept(Guid deviceId, PeriodDate period, Guid excludeAssignmentId)
+    {
+        return await _context.Set<AssignmentDataModel>()
+            .AnyAsync(a =>
+                a.DeviceId == deviceId &&
+                a.Id != excludeAssignmentId &&
+                a.PeriodDate.InitDate <= period.FinalDate &&
+                a.PeriodDate.FinalDate >= period.InitDate
+            );
+    }
+
+
     public async Task<IAssignment?> GetAssignmentByIdAsync(Guid id)
     {
         var assignmentDM = await _context.Set<AssignmentDataModel>().FirstOrDefaultAsync(a => a.Id == id);
