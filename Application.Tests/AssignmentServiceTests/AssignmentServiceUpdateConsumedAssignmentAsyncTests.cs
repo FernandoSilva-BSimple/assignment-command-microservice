@@ -15,35 +15,24 @@ public class UpdateConsumedAssignmentAsyncTests
     {
         // Arrange
         var assignmentId = Guid.NewGuid();
-        var oldCollaboratorId = Guid.NewGuid();
         var newCollaboratorId = Guid.NewGuid();
-        var oldDeviceId = Guid.NewGuid();
         var newDeviceId = Guid.NewGuid();
-        var oldPeriod = new PeriodDate(new DateOnly(2025, 7, 1), new DateOnly(2025, 7, 10));
         var newPeriod = new PeriodDate(new DateOnly(2025, 8, 1), new DateOnly(2025, 8, 10));
 
         var assignmentMock = new Mock<IAssignment>();
         assignmentMock.Setup(a => a.Id).Returns(assignmentId);
 
-        assignmentMock.Setup(a => a.UpdateCollaborator(It.IsAny<Guid>()))
-                      .Verifiable();
-        assignmentMock.Setup(a => a.UpdateDevice(It.IsAny<Guid>()))
-                      .Verifiable();
-        assignmentMock.Setup(a => a.UpdatePeriodDate(It.IsAny<PeriodDate>()))
-                      .Verifiable();
-
         var assignmentRepo = new Mock<IAssignmentRepository>();
         assignmentRepo.Setup(r => r.GetAssignmentByIdAsync(assignmentId)).ReturnsAsync(assignmentMock.Object);
-        assignmentRepo.Setup(r => r.UpdateAssignmentAsync(It.IsAny<IAssignment>()))
-                      .ReturnsAsync(assignmentMock.Object);
+        assignmentRepo.Setup(r => r.UpdateAssignmentAsync(It.IsAny<IAssignment>())).ReturnsAsync(assignmentMock.Object);
 
-        var assignmentFactory = new Mock<IAssignmentFactory>();
-        var deviceRepository = new Mock<IDeviceRepository>();
-        var collaboratorRepository = new Mock<ICollaboratorRepository>();
-        var publisher = new Mock<IMessagePublisher>();
-
-        var service = new AssignmentService(assignmentRepo.Object, assignmentFactory.Object, publisher.Object, deviceRepository.Object, collaboratorRepository.Object);
-
+        var service = new AssignmentService(
+            assignmentRepo.Object,
+            Mock.Of<IAssignmentFactory>(),
+            Mock.Of<IMessagePublisher>(),
+            Mock.Of<IDeviceRepository>(),
+            Mock.Of<ICollaboratorRepository>()
+        );
         // Act
         var result = await service.UpdateConsumedAssignmentAsync(assignmentId, newCollaboratorId, newDeviceId, newPeriod);
 

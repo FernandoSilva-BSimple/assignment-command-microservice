@@ -39,6 +39,7 @@ namespace Application.Tests.AssignmentServiceTests
             assignmentMock.Setup(a => a.DeviceId).Returns(() => currentDeviceId);
             assignmentMock.Setup(a => a.CollaboratorId).Returns(() => currentCollaboratorId);
             assignmentMock.Setup(a => a.PeriodDate).Returns(() => currentPeriod);
+
             assignmentMock.Setup(a => a.UpdateDevice(It.IsAny<Guid>())).Callback<Guid>(id => currentDeviceId = id);
             assignmentMock.Setup(a => a.UpdateCollaborator(It.IsAny<Guid>())).Callback<Guid>(id => currentCollaboratorId = id);
             assignmentMock.Setup(a => a.UpdatePeriodDate(It.IsAny<PeriodDate>())).Callback<PeriodDate>(p => currentPeriod = p);
