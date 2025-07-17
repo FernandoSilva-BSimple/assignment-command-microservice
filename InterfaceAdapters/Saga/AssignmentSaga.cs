@@ -2,11 +2,10 @@ using Application.DTO.Assignment;
 using Application.DTO.AssignmentTemp;
 using Application.Interfaces;
 using AutoMapper;
-using Contracts;
-using Contracts.Commands;
-using Contracts.Messages;
+using Domain.Commands;
 using Domain.Factory.AssignmentFactory;
 using Domain.Interfaces;
+using Domain.Messages;
 using Domain.Models;
 using MassTransit;
 

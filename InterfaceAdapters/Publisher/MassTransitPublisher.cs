@@ -1,6 +1,6 @@
 using Application.IPublishers;
-using Contracts.Commands;
-using Contracts.Messages;
+using Domain.Commands;
+using Domain.Messages;
 using Domain.Models;
 using MassTransit;
 

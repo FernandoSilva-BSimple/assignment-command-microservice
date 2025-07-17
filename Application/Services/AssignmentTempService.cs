@@ -2,7 +2,7 @@ using Application.DTO.Assignment;
 using Application.DTO.AssignmentTemp;
 using Application.Interfaces;
 using Application.IPublishers;
-using Contracts.Commands;
+using Domain.Commands;
 using Domain.Factory.AssignmentTempFactory;
 using Domain.Interfaces;
 using Domain.IRepository;

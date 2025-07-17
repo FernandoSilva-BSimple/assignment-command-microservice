@@ -1,5 +1,5 @@
 using Application.Interfaces;
-using Contracts.Messages;
+using Domain.Messages;
 using Domain.Models;
 using MassTransit;
 
@@ -17,7 +17,6 @@ public class CollaboratorCreatedConsumer : IConsumer<CollaboratorCreatedMessage>
     public Task Consume(ConsumeContext<CollaboratorCreatedMessage> context)
     {
         var collabId = context.Message.Id;
-        var collabPeriod = new PeriodDateTime(context.Message.StartDate, context.Message.EndDate);
-        return _collaboratorService.AddConsumedCollaboratorAsync(collabId, collabPeriod);
+        return _collaboratorService.AddConsumedCollaboratorAsync(collabId, context.Message.PeriodDateTime);
     }
 }

@@ -2,7 +2,7 @@ using Application.DTO.Assignment;
 using Application.DTO.AssignmentTemp;
 using Domain.Interfaces;
 using Domain.Models;
-using Contracts.Commands;
+using Domain.Commands;
 
 namespace Application.Interfaces;
 

@@ -1,4 +1,4 @@
-using Contracts.Commands;
+using Domain.Commands;
 using InterfaceAdapters.Publisher;
 using MassTransit;
 using Moq;

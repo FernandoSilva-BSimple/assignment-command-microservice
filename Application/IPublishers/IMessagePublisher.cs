@@ -1,4 +1,4 @@
-using Contracts.Commands;
+using Domain.Commands;
 using Domain.Models;
 
 namespace Application.IPublishers

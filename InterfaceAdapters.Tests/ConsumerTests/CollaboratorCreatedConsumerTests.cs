@@ -1,5 +1,5 @@
 using Application.Interfaces;
-using Contracts.Messages;
+using Domain.Messages;
 using Domain.Models;
 using InterfaceAdapters.Consumers;
 using MassTransit;
@@ -20,8 +20,9 @@ namespace InterfaceAdapters.Tests.ConsumerTests
             var userId = Guid.NewGuid();
             var start = DateTime.Now;
             var end = start.AddYears(1);
+            var period = new PeriodDateTime(start, end);
 
-            var message = new CollaboratorCreatedMessage(Guid.NewGuid(), userId, start, end);
+            var message = new CollaboratorCreatedMessage(Guid.NewGuid(), userId, period);
             var context = Mock.Of<ConsumeContext<CollaboratorCreatedMessage>>(c => c.Message == message);
 
             // Act

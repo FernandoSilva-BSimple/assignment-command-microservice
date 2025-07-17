@@ -1,6 +1,5 @@
 using Application.IPublishers;
-using Contracts.Commands;
-using Contracts.Messages;
+using Domain.Commands;
 using Domain.Models;
 
 public class FakePublisherForTests : IMessagePublisher

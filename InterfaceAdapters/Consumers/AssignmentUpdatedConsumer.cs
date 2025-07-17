@@ -1,6 +1,6 @@
 using Application.Interfaces;
-using Contracts.Messages;
 using Domain.Interfaces;
+using Domain.Messages;
 using Domain.Models;
 using MassTransit;
 
