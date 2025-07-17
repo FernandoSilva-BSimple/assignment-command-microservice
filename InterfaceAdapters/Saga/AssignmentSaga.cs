@@ -82,8 +82,7 @@ public class AssignmentSaga : MassTransitStateMachine<AssignmentSagaState>
 
                     var assigment = assignmentFactory.ConvertFromTemp(assignmentTemp, ctx.Message.Id);
 
-                    var createAssignmentDTO = new CreateAssignmentDTO(assigment.DeviceId, assigment.CollaboratorId, assigment.PeriodDate);
-                    await assignmentService.Create(createAssignmentDTO);
+                    await assignmentService.CreateWithoutPublish(assigment);
 
                     await assignmentTempService.DeleteAssignmentTempAsync(assignmentTemp.Id);
 

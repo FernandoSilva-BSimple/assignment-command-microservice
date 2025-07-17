@@ -20,6 +20,6 @@ public class AssignmentCreatedConsumer : IConsumer<AssignmentCreatedMessage>
 
         var period = new PeriodDate(context.Message.StartDate, context.Message.EndDate);
 
-        await _assignmentService.AddConsumedAssignmentAsync(context.Message.AssignmentId, context.Message.CollaboratorId, context.Message.DeviceId, period);
+        await _assignmentService.AddConsumedAssignmentAsync(context.Message.AssignmentId, context.Message.DeviceId, context.Message.CollaboratorId, period);
     }
 }
