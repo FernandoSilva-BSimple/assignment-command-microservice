@@ -27,7 +27,7 @@ public class AddConsumedAssignmentAsyncTests
         );
 
         var assignmentRepo = new Mock<IAssignmentRepository>();
-        assignmentRepo.Setup(r => r.GetAssignmentByIdAsync(assignmentId)).ReturnsAsync(existingAssignment);
+        assignmentRepo.Setup(r => r.Exists(assignmentId)).ReturnsAsync(true);
 
         var assignmentFactory = new Mock<IAssignmentFactory>();
         var deviceRepositoryMock = new Mock<IDeviceRepository>();
@@ -40,7 +40,7 @@ public class AddConsumedAssignmentAsyncTests
         var result = await service.AddConsumedAssignmentAsync(assignmentId, collaboratorId, deviceId, period);
 
         // Assert
-        Assert.Equal(existingAssignment, result);
+        Assert.Null(result);
         assignmentFactory.Verify(f => f.Create(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<PeriodDate>()), Times.Never);
         assignmentRepo.Verify(r => r.CreateAssignmentAsync(It.IsAny<IAssignment>()), Times.Never);
     }
