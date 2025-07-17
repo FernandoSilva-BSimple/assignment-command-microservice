@@ -30,12 +30,12 @@ public class PublishAssignmentCreatedAsyncTests
 
         // Assert
         publishEndpointDouble.Verify(p => p.Publish(
-     It.Is<AssignmentCreatedMessage>(m =>
-         m.AssignmentId == assignmentId &&
-         m.DeviceId == deviceId &&
-         m.CollaboratorId == collaboratorId &&
-         m.StartDate == initDate &&
-         m.EndDate == finalDate
+            It.Is<AssignmentCreatedMessage>(m =>
+                m.AssignmentId == assignmentId &&
+                m.DeviceId == deviceId &&
+                m.CollaboratorId == collaboratorId &&
+                m.StartDate == initDate &&
+                m.EndDate == finalDate
      ),
      CancellationToken.None
  ), Times.Once);
