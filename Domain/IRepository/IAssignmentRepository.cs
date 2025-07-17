@@ -10,5 +10,7 @@ public interface IAssignmentRepository
     Task<IAssignment?> UpdateAssignmentAsync(IAssignment assignment);
     Task<bool> ExistsWithDeviceAndOverlappingPeriod(Guid deviceId, PeriodDate period);
     Task<bool> ExistsWithDeviceAndOverlappingPeriodExcept(Guid deviceId, PeriodDate period, Guid excludeAssignmentId);
+    Task<bool> Exists(Guid id);
+
 
 }

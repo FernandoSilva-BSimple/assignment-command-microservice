@@ -92,10 +92,10 @@ namespace Application.Services
             }
         }
 
-        public async Task<IAssignment> AddConsumedAssignmentAsync(Guid id, Guid collaboratorId, Guid deviceId, PeriodDate periodDate)
+        public async Task<IAssignment?> AddConsumedAssignmentAsync(Guid id, Guid collaboratorId, Guid deviceId, PeriodDate periodDate)
         {
-            var assignmentAlreadyExists = await _assignmentRepository.GetAssignmentByIdAsync(id);
-            if (assignmentAlreadyExists != null) return assignmentAlreadyExists;
+            var exists = await _assignmentRepository.Exists(id);
+            if (exists) return null;
 
             var assignment = _assignmentFactory.Create(id, collaboratorId, deviceId, periodDate);
             return await _assignmentRepository.CreateAssignmentAsync(assignment);

@@ -77,4 +77,9 @@ public class AssignmentRepository : IAssignmentRepository
         var assignmentUpdated = _mapper.Map<IAssignment>(assignmentDM);
         return assignmentUpdated;
     }
+
+    public async Task<bool> Exists(Guid id)
+    {
+        return await _context.Assignments.AnyAsync(a => a.Id == id);
+    }
 }
