@@ -10,4 +10,6 @@ public interface IAssignmentService
     Task<Result<UpdatedAssignmentDTO>> Update(UpdateAssignmentDTO dto);
     Task<IAssignment?> AddConsumedAssignmentAsync(Guid id, Guid collaboratorId, Guid deviceId, PeriodDate periodDate);
     Task<IAssignment?> UpdateConsumedAssignmentAsync(Guid id, Guid collaboratorId, Guid deviceId, PeriodDate periodDate);
+    Task<IAssignment> CreateWithoutPublish(IAssignment assignment);
+
 }

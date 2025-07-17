@@ -92,6 +92,12 @@ namespace Application.Services
             }
         }
 
+        public async Task<IAssignment> CreateWithoutPublish(IAssignment assignment)
+        {
+            var assignmentAdded = await _assignmentRepository.CreateAssignmentAsync(assignment);
+            return assignmentAdded;
+        }
+
         public async Task<IAssignment?> AddConsumedAssignmentAsync(Guid id, Guid collaboratorId, Guid deviceId, PeriodDate periodDate)
         {
             var exists = await _assignmentRepository.Exists(id);

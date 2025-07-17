@@ -31,13 +31,6 @@ namespace Application.Services
             await _assignmentTempRepository.CreateAssignmentTempAsync(assignmentTemp);
         }
 
-        public async Task<IAssignmentTemp> CreateAssignmentTempAsyncWithId(Guid id, Guid CollabId, PeriodDate periodDate, string deviceDescription, string deviceBrand, string deviceModel, string deviceSerialNumber)
-        {
-            var assignmentTemp = await _assignmentTempFactory.Create(id, CollabId, periodDate, deviceDescription, deviceBrand, deviceModel, deviceSerialNumber);
-            var existing = await _assignmentTempRepository.CreateAssignmentTempAsync(assignmentTemp);
-            return existing;
-        }
-
         public async Task StartSagaAsync(CreateAssignmentAndDeviceDTO dto)
         {
             Guid assignmentTempId = Guid.NewGuid();
